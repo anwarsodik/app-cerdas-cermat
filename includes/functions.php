@@ -32,7 +32,13 @@ function verify_csrf(): void
 {
     $token = $_POST['csrf_token'] ?? ($_SERVER['HTTP_X_CSRF_TOKEN'] ?? '');
     if (!is_string($token) || !hash_equals(csrf_token(), $token)) {
-        json_response(['ok' => false, 'message' => 'Sesi formulir tidak valid. Muat ulang halaman.'], 419);
+        $path = (string) (parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/');
+        if (str_starts_with($path, '/api/')) {
+            json_response(['ok' => false, 'message' => 'Sesi formulir tidak valid. Muat ulang halaman.'], 419);
+        }
+
+        flash('error', 'Sesi formulir berakhir. Silakan coba kembali.');
+        redirect($path);
     }
 }
 
@@ -167,4 +173,3 @@ function status_label(string $status): string
         default => 'Persiapan',
     };
 }
-

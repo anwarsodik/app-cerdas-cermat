@@ -107,6 +107,5 @@ CREATE TABLE IF NOT EXISTS score_events (
 ) ENGINE=InnoDB;
 
 INSERT INTO users (name, username, password_hash, role)
-SELECT 'Operator Demo', 'admin', '$2y$12$om4mXBwohpBCIjZLsOztPe0Wo6kLhiCxTFAkDklG4TD.1QdO.L.EW', 'admin'
+SELECT 'Operator Demo', 'admin', '$2y$12$fc6vT4ergl/1KC5ICds98.42BQxx4s.fjsDz9m3D7gQ6uw1p/HhLu', 'admin'
 WHERE NOT EXISTS (SELECT 1 FROM users WHERE username = 'admin');
-

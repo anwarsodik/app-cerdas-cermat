@@ -6,6 +6,7 @@ require_once __DIR__ . '/auth.php';
 
 $pageTitle = $pageTitle ?? 'CCI An Nuur';
 $bodyClass = $bodyClass ?? '';
+$showAppHeader = $showAppHeader ?? true;
 $flashMessage = pull_flash();
 $activeEvent = user() ? active_event() : null;
 ?>
@@ -19,7 +20,7 @@ $activeEvent = user() ? active_event() : null;
     <link rel="stylesheet" href="/assets/css/app.css">
 </head>
 <body class="<?= e($bodyClass) ?>">
-<?php if (user()): ?>
+<?php if ($showAppHeader && user()): ?>
     <header class="app-header">
         <a class="brand" href="/operator.php" aria-label="CCI An Nuur, konsol operator">
             <span class="brand-mark" aria-hidden="true">CCI</span>
@@ -45,4 +46,3 @@ $activeEvent = user() ? active_event() : null;
             <?= e($flashMessage['message']) ?>
         </div>
     <?php endif; ?>
-
